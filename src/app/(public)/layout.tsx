@@ -1,6 +1,10 @@
+"use client"
 
 // 🌐 LAYOUT PÚBLICO - Layout para páginas públicas
 // ⚠️ ARQUIVO DELETÁVEL - Pode ser removido ao criar seu próprio layout
+
+import { PublicLayoutContainer } from "./PublicLayoutStyles"
+
 
 export default function PublicLayout({
   children,
@@ -8,9 +12,8 @@ export default function PublicLayout({
   children: React.ReactNode
 }) {
   return (
-    <div>
+    <PublicLayoutContainer>
       {children}
-    </div>
+    </PublicLayoutContainer>
   )
 }
-        

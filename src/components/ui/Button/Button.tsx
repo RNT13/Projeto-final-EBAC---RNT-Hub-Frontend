@@ -5,7 +5,7 @@ import Link from 'next/link'
 import React, { forwardRef } from 'react'
 import { ButtonContent, IconWrapper, StyledButton } from './ButtonStyles'
 
-type ButtonVariants = 'primary' | 'secondary' | 'toggle' | 'outline' | 'ghost' | 'link' | 'danger' | 'cian' | 'pink'
+type ButtonVariants = 'primary' | 'secondary' | 'toggle' | 'outline' | 'ghost' | 'link' | 'danger' | 'cian' | 'pink' | 'glass'
 type ButtonSizes = 'xs' | 'sm' | 'md' | 'lg'
 
 export interface CommonButtonProps {
@@ -101,4 +101,3 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
 Button.displayName = 'Button'
 export default Button
 
-        

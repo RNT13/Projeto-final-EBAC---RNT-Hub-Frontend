@@ -1,4 +1,3 @@
-
 // 🎨 ARQUIVO DE TEMA - Configurações de cores e breakpoints do projeto
 
 import { colorHSLVariants } from '@/utils/colorUtils'
@@ -16,6 +15,7 @@ export const baseGreen = colorHSLVariants(100, 100, 50)
 export const baseRed = colorHSLVariants(0, 100, 50)
 export const baseCyan = colorHSLVariants(180, 150, 50)
 export const baseYellow = colorHSLVariants(60, 100, 50)
+export const baseglass = colorHSLVariants(255, 255, 255)
 
 export const theme: DefaultTheme = {
   colors: {
@@ -25,6 +25,7 @@ export const theme: DefaultTheme = {
     baseRed,
     baseCyan,
     baseYellow,
+    baseglass,
     primaryColor: '#6f87f1',
     secondaryColor: '#7370b5',
     thirdColor: '#b2afe2',
@@ -34,9 +35,9 @@ export const theme: DefaultTheme = {
     pinkColor: '#f7a6c9',
     pinkColor2: '#ebc6d3ff',
     pinkColor3: '#ff007f',
-    textColor: '#f59099f6',
-    textColor2: '#e66570f6',
-    textColor3: '#f8edfc',
+    textColor: '#ffffffec',
+    textColor2: '#161515f6',
+    textColor3: '#444d81ff',
     bgColor: '#737065',
     yellow: '#ffff00',
     yellow2: '#E1A32A',
@@ -115,5 +116,3 @@ export const themeConfig = {
   light: lightTheme,
   dark: darkTheme
 }
-
-    

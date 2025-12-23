@@ -4,7 +4,7 @@ import { media, theme } from '@/styles/theme'
 import styled, { css } from 'styled-components'
 
 interface StyledButtonProps {
-  $variant: 'primary' | 'secondary' | 'toggle' | 'outline' | 'ghost' | 'link' | 'danger' | 'cian' | 'pink'
+  $variant: 'primary' | 'secondary' | 'toggle' | 'outline' | 'ghost' | 'link' | 'danger' | 'cian' | 'pink' | 'glass'
   $size: 'xs' | 'sm' | 'md' | 'lg'
   $loading: boolean
   $fullWidth: boolean
@@ -189,7 +189,38 @@ const buttonVariants = {
       background-color: ${({ theme }) => theme.colors.pinkColor};
       transform: translateY(0);
     }
-    `
+    `,
+
+  glass: css`
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 1);
+
+  /* 🌟 brilho lateral suave */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+
+  /* opcional: highlight no topo */
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+
+  /* opcional: highlight na lateral esquerda */
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 1);
+      color: rgba(255, 255, 255, 1);
+      transform: translateY(-1px);
+      scale: 1.01;
+      box-shadow: 0 4px 30px rgba(255, 255, 255, 0.5)
+    }
+
+    &:active:not(:disabled) {
+      background-color: rgba(255, 255, 255, 1);
+      transform: translateY(0);
+    }
+  `
 }
 
 const activeStyles = {
@@ -247,6 +278,13 @@ const activeStyles = {
     color: ${({ theme }) => theme.colors.fifthColor};
     box-shadow: 2px 2px 0px ${({ theme }) => theme.colors.fifthColor};
   `,
+
+  glass: css`
+    background: ${theme.colors.baseglass.light04};
+    border-color: ${theme.colors.baseglass.light08};
+    color: ${theme.colors.baseBlack.dark50};
+    box-shadow: 2px 2px 2px ${theme.colors.baseglass.light08};
+  `
 }
 
 
@@ -329,7 +367,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
       &::before {
         content: "";
         position: absolute;
-        top: 50%;
+        top: 41%;
         left: 50%;
         width: 16px;
         height: 16px;
@@ -367,13 +405,18 @@ export const ButtonContent = styled.span<{ $loading: boolean }>`
   gap: 8px;
   opacity: ${({ $loading }) => ($loading ? 0 : 1)};
   transition: opacity 0.2s ease-in-out;
-  }
 `
 
 export const IconWrapper = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
   }
 
   svg {
@@ -391,4 +434,3 @@ export const IconWrapper = styled.span`
     border-radius: 50%;
   }
 `
-        

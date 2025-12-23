@@ -13,23 +13,27 @@ export const ModalWrapper = ({ isOpen, children, onClose }: ModalWrapperProps) =
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          key="modal"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -30 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
           style={{
             position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            zIndex: 100,
+            inset: 0,
+            zIndex: 1000,
+
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            backdropFilter: "blur(5px)",
+
+            padding: "24px",
+
+            backgroundColor: "rgba(0,0,0,0.35)",
+            backdropFilter: "blur(4px)",
+
+            overflowY: "auto",
+            overscrollBehavior: "contain",
+            scrollbarWidth: "none"
           }}
           onClick={onClose}
         >
@@ -37,9 +41,9 @@ export const ModalWrapper = ({ isOpen, children, onClose }: ModalWrapperProps) =
             {children}
           </div>
         </motion.div>
+
       )}
     </AnimatePresence>
   );
 };
 
-    

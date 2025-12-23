@@ -1,16 +1,14 @@
+'use client'
 
-// 🔒 LAYOUT PRIVADO - Layout para páginas privadas
-// ⚠️ ARQUIVO DELETÁVEL - Pode ser removido ao criar seu próprio layout
+import Header from "@/components/layout/header/Header"
+import { PrivateLayoutContainer } from "./PrivateLayoutStyles"
 
-export default function PrivateLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+
+export default function PrivateLayout({ children, }: { children: React.ReactNode }) {
   return (
-    <div>
+    <PrivateLayoutContainer>
+      <Header />
       {children}
-    </div>
+    </PrivateLayoutContainer>
   )
 }
-    

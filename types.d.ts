@@ -1,4 +1,3 @@
-
 import 'styled-components'
 import { store } from './src/redux/store'
 
@@ -20,6 +19,7 @@ declare module 'styled-components' {
       baseRed: ColorVariants
       baseCyan: ColorVariants
       baseYellow: ColorVariants
+      baseglass: ColorVariants
 
       // cores estáticas
       primaryColor: string
@@ -92,142 +92,27 @@ declare global {
     USER = 'USER'
   }
 
-  enum MessageStatus {
-    NEW = 'NEW',
-    READ = 'READ',
-    ANSWERED = 'ANSWERED'
-  }
-
-  enum OrderStatus {
-    PAID = 'PAID',
-    PROCESSING = 'PROCESSING',
-    SHIPPED = 'SHIPPED',
-    DELIVERED = 'DELIVERED',
-    CANCELED = 'CANCELED',
-    FAILED = 'FAILED',
-    REFUNDED = 'REFUNDED'
-  }
-
-  enum PaymentMethod {
-    BOLETO = 'BOLETO',
-    CREDIT_CARD = 'CREDIT_CARD',
-    DEBIT_CARD = 'DEBIT_CARD',
-    PIX = 'PIX',
-    PENDING = 'PENDING'
-  }
-
   // -------------------------------------
   // Entidades do Banco de Dados (Models)
   // -------------------------------------
-  interface Category {
-    id: string
-    name: string
-    slug: string
-    createdAt: Date
-    updatedAt: Date
-  }
 
-  interface Product {
-    id: string
-    name: string
-    categoryId: string
-    category: Category
-    description: string
-    originalPrice: number
-    salePrice: number
-    discount: number
-    thumbnail: string
-    gallery: string[]
-    stock: number
-    highlight: boolean
-    sold: number
-    active: boolean
-    weight: number
-    height: number
-    width: number
-    length: number
-    createdAt: Date
-    updatedAt: Date
-  }
-
-  interface Address {
-    id: string
-    label: string
-    tel: string
-    zipCode: string
-    street: string
-    complement?: string
-    number: string
-    city: string
-    state: string
-  }
-
-  interface User {
-    id: string
-    name: string
+  export interface User {
+    id: number
     email: string
-    password: string
-    avatar?: string
+    username: string
+    full_name: string
     role: UserRole
-    address?: Address[]
-    createdAt: Date
-    updatedAt: Date
-  }
-
-  interface CartItem {
-    id: number
-    product: Product
-    quantity: number
-    cartId: number
-  }
-
-  interface Cart {
-    id: number
-    userId: string
-    items: CartItem[]
-  }
-
-  interface OrderProduct {
-    id: string
-    product: Product
-    productId: string
-    orderId: string
-    quantity: number
-    price: number
-  }
-
-  interface Order {
-    id: string
-    user: User
-    userId: string
-    products: OrderProduct[]
-    totalAmount: number
-    paymentMethod: PaymentMethod
-    status: OrderStatus
-    shippingAddress: Address
-    shippingCost: number
-    trackingCode?: string
-    stripePaymentId?: string
-    createdAt: Date
-    updatedAt: Date
-    statusHistory?: {
-      status: OrderStatus
-      changedAt: Date
-    }[]
-  }
-
-  interface Message {
-    id: string
-    name: string
-    email: string
-    tel: string
-    type: string
-    message: string
-    status: MessageStatus
-    response?: string
-    user?: User
-    createdAt: Date
-    updatedAt: Date
+    user_tag: string
+    bio: string
+    avatar: string
+    user_bg: string
+    website: string
+    location: string
+    is_verified: boolean
+    date_joined: Date
+    followers_count: string
+    following_count: string
+    is_following: boolean
   }
 
   // -------------------------------------
@@ -236,9 +121,11 @@ declare global {
 
   // Auth
   interface RegisterPayload {
-    name: string
     email: string
+    username: string
+    full_name: string
     password: string
+    confirm_password: string
   }
   interface RegisterResponse {
     user: User
@@ -251,106 +138,85 @@ declare global {
     password: string
   }
   interface LoginResponse {
+    access: string
     user: User
     token: string
     message: string
     success: boolean
   }
-  interface VerifyResponse {
+
+  interface RefreshResponse {
+    access: string
+  }
+
+  type SectionType = 'noticias' | 'videos' | 'fotos' | 'chat' | 'perfil' | 'mensagens' | 'notificacoes' | 'configuracoes' | 'usuarios'
+
+  type SettingsWindow = 'name' | 'password'
+
+  interface Post {
     id: string
-    name: string
-    email: string
-    role: UserRole
-    avatar: string
+    author: User
+    author_username: string
+    content: string
+    is_liked: boolean
+    image: string
+    created_at: string
+    updated_at: string
+    likes_count: number
+    comments_count: number
+  }
+
+  interface NewPostPayload {
+    content: string
+    image?: File | string
+  }
+
+  interface Comment {
+    id: number
+    user: User
+    post_id: number
+    content: string
+    created_at: string
+  }
+
+  interface NewPostResponse {
+    id: string
+    author: User
+    author_username: string
+    content: string
+    image: string
     createdAt: Date
     updatedAt: Date
-    defaultAddressId: string
+    likes_count: number
+    comments_count: number
   }
 
-  // Product
-  interface NewProductPayload {
-    id?: string
-    name: string
-    categoryId: string
-    description: string
-    originalPrice?: number
-    thumbnail: string
-    gallery: string[]
-    discount: number
-    stock: number
-    highlight: boolean
-    sold: number
-    active: boolean
+  type BoxProps = {
+    direction: 'row' | 'column'
+    $justify?: 'center' | 'space-between' | 'space-around' | 'start' | 'end'
+    $align?: 'center' | 'space-between' | 'space-around' | 'start' | 'end'
+    $bgColor?: 'primary' | 'secondary' | 'tertiary' | 'glass'
+    width?: 'xm' | 'sm' | 'md' | 'lg' | 'fit'
+    height?: 'xm' | 'sm' | 'md' | 'lg' | 'fit'
+    $padding?: 'xm' | 'sm' | 'md' | 'lg' | 'fit'
   }
 
-  // Cart
-  interface SimplifiedCartItem {
-    productId: string
-    quantity: number
-    salePrice: number
-  }
-  interface NewCartItemPayload {
-    productId: string
-    quantity: number
-  }
-  interface UpdateCartItemPayload {
-    quantity: number
+  interface PaginatedResponse<T> {
+    count: number
+    next: string | null
+    previous: string | null
+    results: T[]
   }
 
-  // Address
-  interface NewAddressPayload {
-    label: string
-    tel: string
-    zipCode: string
-    street: string
-    complement?: string
-    number: string
-    city: string
-    state: string
-  }
-
-  // Order
-  interface NewOrderRequestBody {
-    cartId: number
-    addressId: string
-    totalAmount: number
-    shippingCost: number
-  }
-  interface PendingOrder {
-    order: Order
-    clientSecret: string
-  }
-
-  // Message
-  interface MessagePayload {
-    name: string
-    email: string
-    tel: string
-    type: string
-    message: string
-    response?: string
-  }
-
-  // Shipping
-  interface ShippingRequest {
-    cepDestino: string
-    peso: number
-    largura: number
-    altura: number
-    comprimento: number
-  }
-  interface ShippingResponse {
-    price: number
-    prazo: number
-  }
-
-  // Genérico
   interface ApiErrorResponse {
-    data?: {
-      message?: string
+    status: number
+    data: {
+      detail: string
+      [key: string]: string
     }
-    status?: number
+    statusText: string
+    message: string
+    success: boolean
+    error: string
   }
 }
-
-    

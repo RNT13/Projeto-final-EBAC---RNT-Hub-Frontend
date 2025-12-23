@@ -1,46 +1,56 @@
-
 'use client'
 
-// 🧭 HEADER COMPONENT - Cabeçalho da aplicação
-// ⚠️ ARQUIVO DELETÁVEL - Pode ser removido ao criar seu próprio header
+import { BaseMaskedInput } from "@/components/ui/MaskedInput/BaseMaskedInput";
+import UserSection from "@/components/ui/UserSection/UserSection";
+import UserWindow from "@/components/ui/UserWindow/UserWindow";
+import { useAppDispatch, useAppSelector } from "@/hooks/useAppDispatch";
+import { setRenderSection } from "@/redux/slices/renderSectionSlice";
+import { RootState } from "@/redux/store";
+import { Box } from "@/styles/globalStyles";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FaHubspot } from "react-icons/fa6";
+import { HeaderContainer, HeaderContent, LogoContainer, SearchBarContainer, UserContainer } from "./HeaderStyles";
 
-import Link from 'next/link'
-import styled from 'styled-components'
-import { theme } from '@/styles/theme'
 
-const HeaderContainer = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  background-image: linear-gradient(90deg, ${theme.colors.baseBlack.base}, ${theme.colors.baseBlack.light});
-  border-bottom: 2px solid ${theme.colors.baseBlue.base};
-  position: sticky;
-  top: 0;
-  z-index: 100;
-`
 
-const Logo = styled.div`
-  h1 {
-    color: ${theme.colors.textColor};
-    font-size: 1.8rem;
-    font-weight: 700;
-    background: linear-gradient(360deg, ${theme.colors.baseBlue.base}, ${theme.colors.baseBlue.light20});
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-`
+export default function Header() {
+  const dispatch = useAppDispatch();
+  const { activeSection } = useAppSelector((state: RootState) => state.renderSection);
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [search, setSearch] = useState('');
+  const route = useRouter();
 
-const Header = () => {
+  const handleSectionChange = (newSection: unknown) => {
+    dispatch(setRenderSection(newSection));
+    setIsMenuOpen(false)
+    route.push(`/feed`);
+  };
+
   return (
-    <HeaderContainer>
-      <Logo>
-        <h1>RNT</h1>
-      </Logo>
+    <HeaderContainer className="container">
+      <HeaderContent>
+        <Box $bgColor="glass" direction="row" height="lg" width="lg" $align="center" $justify="space-between">
+          <LogoContainer onClick={() => handleSectionChange('noticias')}>
+            <FaHubspot /><p>RNT Hub</p>
+          </LogoContainer>
+
+          <SearchBarContainer>
+            <BaseMaskedInput
+              value={search}
+              onChange={setSearch}
+              variant="search"
+              onClick={() => handleSectionChange('usuarios')}
+            />
+          </SearchBarContainer>
+
+          <UserContainer>
+            <UserSection onClick={() => setIsMenuOpen(!isMenuOpen)} />
+          </UserContainer>
+        </Box>
+      </HeaderContent>
+      <UserWindow isOpen={isMenuOpen} activeSection={activeSection} setActiveSection={handleSectionChange} />
     </HeaderContainer>
   )
 }
 
-export default Header
-      
