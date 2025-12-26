@@ -89,6 +89,17 @@ export const apiSlice = createApi({
       providesTags: ['User']
     }),
 
+    getUsersBySearch: builder.query<PaginatedResponse<User>, string>({
+      query: search => ({
+        url: `/api/v1/users/`,
+        params: search ? { search } : {}
+      })
+    }),
+
+    getPopularUsers: builder.query<PaginatedResponse<User>, void>({
+      query: () => '/api/v1/users/popular/'
+    }),
+
     getUserById: builder.query<User, number>({
       query: id => `api/v1/users/${id}/`,
       providesTags: ['User']
@@ -275,6 +286,8 @@ export const {
   //====== USERS ======//
   useGetCurrentUserQuery,
   useGetUsersQuery,
+  useGetUsersBySearchQuery,
+  useGetPopularUsersQuery,
   useGetUserByIdQuery,
   useEditUserMutation,
   useGetUserByUsernameQuery,

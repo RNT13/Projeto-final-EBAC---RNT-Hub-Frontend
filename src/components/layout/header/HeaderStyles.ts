@@ -3,18 +3,15 @@ import { media } from '@/styles/theme'
 import { styled } from 'styled-components'
 
 export const HeaderContainer = styled.header`
-  height: 80px;
+  height: 100%;
   position: sticky;
   top: 0;
   z-index: 100;
-  margin-bottom: 24px;
-  margin-top: 24px;
+  padding: 24px 0px;
 
   ${media.tablet} {
-    margin-bottom: 12px;
-    margin-top: 12px;
     height: 100%;
-
+    padding: 12px 0px;
     position: relative;
   }
 `

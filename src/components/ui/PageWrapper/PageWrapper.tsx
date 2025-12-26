@@ -11,6 +11,8 @@ const Wrapper = styled.div`
 const Main = styled.main`
   flex: 1;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 `
 
 export default function PageWrapper({ children }: { children: React.ReactNode }) {

@@ -1,64 +1,60 @@
 import Loading from "@/app/loading"
-import { useGetFollowersQuery, useGetFollowingQuery, useGetUsersQuery } from "@/redux/slices/apiSlice"
-import { Box } from "@/styles/globalStyles"
-import UserIdCard from "../UserIdCard/UserIdCard"
+import { useAppSelector } from "@/hooks/useAppDispatch"
+import { useGetFollowersQuery, useGetFollowingQuery, useGetPopularUsersQuery, useGetUsersBySearchQuery, useGetUsersQuery } from "@/redux/slices/apiSlice"
+import { RootState } from "@/redux/store"
+import { UserRenderSection } from "../UserRenderSection/UserRenderSection"
 import { UserIdSectionContainer, UserIdSectionContent } from "./UserIdSectionStyles"
 
 
 
 export const UserIdSection = () => {
-  const { data: users, isLoading: isUsersLoading, isError: isUsersError } = useGetUsersQuery()
-  const { data: followers, isLoading: followersLoading, isError: followersError } = useGetFollowersQuery(123)
-  const { data: following, isLoading: followingLoading, isError: followingError } = useGetFollowingQuery(123)
+  const search = useAppSelector((state: RootState) => state.search.value);
+  const isSearching = search.length >= 2;
 
-  if (!users || !followers || !following) {
-    return <Loading />
-  }
+  const { data: allUsers, isLoading: allLoading } = useGetUsersQuery();
+  const { data: searchUsers, isLoading: searchLoading } = useGetUsersBySearchQuery(search, { skip: !isSearching });
+  const { data: popularUsers } = useGetPopularUsersQuery();
 
-  if (isUsersLoading || followersLoading || followingLoading) {
-    return <Loading />
-  }
+  const { data: followers } = useGetFollowersQuery(123);
+  const { data: following } = useGetFollowingQuery(123);
 
-  if (isUsersError || followersError || followingError) {
-    return <Loading />
-  }
+  if (allLoading || searchLoading) return <Loading />;
 
   return (
     <UserIdSectionContainer>
       <UserIdSectionContent>
 
-        <Box $bgColor="glass" direction="column" height="lg" width="lg" $align="center" $justify="center">
-          <h2>Usuários mais populares</h2>
+        {/* 🔍 SEARCH MODE */}
+        {isSearching && searchUsers && (
+          <UserRenderSection
+            title={`Resultados para "${search}"`}
+            data={searchUsers.results}
+          />
+        )}
 
-          {users.results.length === 0 && <p>Ninguém ainda 😢</p>}
+        {/* 🌍 DEFAULT MODE */}
+        {!isSearching && allUsers && (
+          <>
+            <UserRenderSection
+              title="🔥 Usuários mais populares"
+              data={popularUsers?.results ?? []}
+            />
 
-          {users.results.map(user => (
-            <UserIdCard key={user.id} users={user} />
-          ))}
-        </Box>
+            <UserRenderSection
+              title="Usuários que seguem você"
+              data={followers?.results ?? []}
+            />
 
-        <Box $bgColor="glass" direction="column" height="lg" width="lg" $align="center" $justify="center">
-          <h2>Usuários que seguem você</h2>
-
-          {followers.results.length === 0 && <p>Ninguém ainda 😢</p>}
-
-          {followers.results.map(follower => (
-            <UserIdCard key={follower.id} users={follower} />
-          ))}
-        </Box>
-
-        <Box $bgColor="glass" direction="column" height="lg" width="lg" $align="center" $justify="center">
-          <h2>Usuários que você segue</h2>
-
-          {following.results.length === 0 && <p>Ninguém ainda 😢</p>}
-
-          {following.results.map(following => (
-            <UserIdCard key={following.id} users={following} />
-          ))}
-        </Box>
+            <UserRenderSection
+              title="Usuários que você segue"
+              data={following?.results ?? []}
+            />
+          </>
+        )}
 
       </UserIdSectionContent>
     </UserIdSectionContainer>
-  )
-}
+  );
+};
+
 

@@ -5,6 +5,7 @@ import UserSection from "@/components/ui/UserSection/UserSection";
 import UserWindow from "@/components/ui/UserWindow/UserWindow";
 import { useAppDispatch, useAppSelector } from "@/hooks/useAppDispatch";
 import { setRenderSection } from "@/redux/slices/renderSectionSlice";
+import { setSearch } from "@/redux/slices/searchSlice";
 import { RootState } from "@/redux/store";
 import { Box } from "@/styles/globalStyles";
 import { useRouter } from "next/navigation";
@@ -18,8 +19,9 @@ export default function Header() {
   const dispatch = useAppDispatch();
   const { activeSection } = useAppSelector((state: RootState) => state.renderSection);
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [search, setSearch] = useState('');
   const route = useRouter();
+  const search = useAppSelector((state: RootState) => state.search.value);
+
 
   const handleSectionChange = (newSection: unknown) => {
     dispatch(setRenderSection(newSection));
@@ -30,7 +32,7 @@ export default function Header() {
   return (
     <HeaderContainer className="container">
       <HeaderContent>
-        <Box $bgColor="glass" direction="row" height="lg" width="lg" $align="center" $justify="space-between">
+        <Box $bgColor="glass" $padding="lg" direction="row" height="lg" width="lg" $align="center" $justify="space-between">
           <LogoContainer onClick={() => handleSectionChange('noticias')}>
             <FaHubspot /><p>RNT Hub</p>
           </LogoContainer>
@@ -38,7 +40,7 @@ export default function Header() {
           <SearchBarContainer>
             <BaseMaskedInput
               value={search}
-              onChange={setSearch}
+              onChange={(value) => dispatch(setSearch(value))}
               variant="search"
               onClick={() => handleSectionChange('usuarios')}
             />

@@ -9,15 +9,8 @@ import {
   AiOutlineSearch,
 } from "react-icons/ai";
 import { IMaskInput } from "react-imask";
+import { ErrorDiv, FileTrigger, MaskedInputContainer, PasswordToggle, PreviewImageDiv, SearchIcon } from "./MaskedInputStyles";
 
-import {
-  ErrorDiv,
-  FileTrigger,
-  MaskedInputContainer,
-  PasswordToggle,
-  PreviewImageDiv,
-  SearchIcon,
-} from "./NewMaskedInputStyles";
 
 /* ============================================================
  * TYPES

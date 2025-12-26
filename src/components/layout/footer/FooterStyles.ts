@@ -4,9 +4,10 @@ import { styled } from 'styled-components'
 export const FooterContainer = styled.footer`
   padding: 20px;
   text-align: center;
+  margin-bottom: 90px;
 
   p {
-    color: ${theme.colors.baseBlue.dark50};
+    color: ${theme.colors.baseBlue.light50};
     font-weight: 500;
   }
 
