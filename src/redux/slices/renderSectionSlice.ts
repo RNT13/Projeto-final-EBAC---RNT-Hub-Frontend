@@ -5,7 +5,7 @@ interface renderSectionSlice {
 }
 
 const initialState: renderSectionSlice = {
-  activeSection: 'noticias'
+  activeSection: 'feed'
 }
 
 const renderSectionSlice = createSlice({
