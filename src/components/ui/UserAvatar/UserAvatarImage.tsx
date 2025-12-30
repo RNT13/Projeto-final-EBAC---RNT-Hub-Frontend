@@ -4,7 +4,7 @@ import { FaUser } from "react-icons/fa";
 import { UserAvatarImageContainer, UserAvatarImageContent } from "./UserAvatarImageStyles";
 
 type Props = {
-  user?: User
+  user?: User | UserPublic
   size: 'xsmall' | 'small' | 'medium' | 'large'
   position: 'flex' | 'relative'
   border: 'true' | 'false'

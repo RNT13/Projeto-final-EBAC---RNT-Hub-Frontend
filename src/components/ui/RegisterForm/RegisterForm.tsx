@@ -40,9 +40,10 @@ export function RegisterForm({ registerSuccess, onClose }: RegisterProps) {
         .required('Confirme sua senha')
         .oneOf([yup.ref('password'), ''], 'As senhas não coincidem'),
     }),
-    onSubmit: async (values: RegisterPayload) => {
+    onSubmit: async (values) => {
       try {
         const response = await registerUser(values).unwrap();
+
 
         toast.success(response.message || "Cadastro realizado com sucesso!");
         form.resetForm();

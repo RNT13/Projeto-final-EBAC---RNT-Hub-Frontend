@@ -1,11 +1,13 @@
 'use client'
 
 import { Box } from "@/styles/globalStyles";
-import { FaVideo } from "react-icons/fa";
-import { IoMdChatbubbles, IoMdPhotos } from "react-icons/io";
+import { BsFire } from "react-icons/bs";
+import { FaCompass } from "react-icons/fa";
+import { IoMdChatbubbles } from "react-icons/io";
 import { LuLayoutDashboard } from "react-icons/lu";
 import Button from "../Button/Button";
 import { LeftSidebarContainer, LeftSidebarContent } from "./LeftSidebarStyles";
+
 
 interface LeftSidebarProps {
   activeSection: SectionType;
@@ -20,26 +22,26 @@ export default function LeftSidebar({ activeSection, setActiveSection }: LeftSid
 
           <Button variant="glass" size="sm"
             leftIcon={<LuLayoutDashboard />}
-            $isActive={activeSection === 'noticias'}
-            onClick={() => setActiveSection('noticias')}
+            $isActive={activeSection === 'feed'}
+            onClick={() => setActiveSection('feed')}
           >
-            Noticias
+            Feed
           </Button>
 
           <Button variant="glass" size="sm"
-            leftIcon={<FaVideo />}
-            $isActive={activeSection === 'videos'}
-            onClick={() => setActiveSection('videos')}
+            leftIcon={<FaCompass />}
+            $isActive={activeSection === 'explore'}
+            onClick={() => setActiveSection('explore')}
           >
-            Videos
+            Explorar
           </Button>
 
           <Button variant="glass" size="sm"
-            leftIcon={<IoMdPhotos />}
-            $isActive={activeSection === 'fotos'}
-            onClick={() => setActiveSection('fotos')}
+            leftIcon={<BsFire />}
+            $isActive={activeSection === 'trending'}
+            onClick={() => setActiveSection('trending')}
           >
-            Fotos
+            Hype
           </Button>
 
           <Button variant="glass" size="sm"

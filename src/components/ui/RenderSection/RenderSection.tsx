@@ -1,7 +1,9 @@
 import { Box } from "@/styles/globalStyles";
-import NewsSection from "../NewsSection/NewsSection";
+import ExploreFeed from "../ExploreFeed/ExploreFeed";
+import HypeFeed from "../HypeFeed/HypeFeed";
 import ProfileSection from "../ProfileSection/ProfileSection";
 import SettingsSection from "../SettingsSection/SettingsSection";
+import UserFeed from "../UserFeed/UserFeed";
 import { UserIdSection } from "../UserIdSection/UserIdSection";
 
 interface RenderSectionProps {
@@ -11,23 +13,19 @@ interface RenderSectionProps {
 export default function RenderSection({ activeSection }: RenderSectionProps) {
 
   switch (activeSection) {
-    case 'noticias':
+    case 'feed':
       return (
-        <NewsSection />
+        <UserFeed />
       );
 
-    case 'videos':
+    case 'explore':
       return (
-        <Box $bgColor="glass" direction="column" height="lg" width="lg" $align="center" $justify="center">
-          <h2>Seção de Vídeos</h2>
-        </Box>
+        <ExploreFeed />
       );
 
-    case 'fotos':
+    case 'trending':
       return (
-        <Box $bgColor="glass" direction="column" height="lg" width="lg" $align="center" $justify="center">
-          <h2>Seção de Fotos</h2>
-        </Box>
+        <HypeFeed />
       );
 
     case 'chat':

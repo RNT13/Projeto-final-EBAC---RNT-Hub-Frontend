@@ -46,7 +46,7 @@ export default function ProfileSectionWindow({ onClose }: Props) {
       try {
         const payload = cleanPatchPayload(values)
 
-        await editUser({ body: payload }).unwrap()
+        await editUser(payload).unwrap()
 
         toast.success("Usuário editado com sucesso!")
         onClose()
@@ -59,7 +59,7 @@ export default function ProfileSectionWindow({ onClose }: Props) {
   if (!user) return (
     <ProfileSectionWindowContainer>
       <ProfileSectionWindowContent>
-        <Box $bgColor="glass" direction="column" height="lg" width="lg" $align="center" $justify="center">
+        <Box $bgColor="glass" direction="column" height="lg" width="lg" >
           <Loading />
         </Box>
       </ProfileSectionWindowContent>
@@ -71,7 +71,7 @@ export default function ProfileSectionWindow({ onClose }: Props) {
       <ProfileSectionWindowContent >
         <FormikProvider value={form}>
           <form onSubmit={form.handleSubmit}>
-            <Box $bgColor="glass" direction="column" height="lg" width="lg" $align="center" $justify="center">
+            <Box $bgColor="glass" direction="column" height="lg" width="lg" >
               <CloseButton type="button" onClick={onClose} ><IoMdCloseCircle /></CloseButton>
               <ProfileSectionWindowHeader>
                 <p>Editar Perfil</p>

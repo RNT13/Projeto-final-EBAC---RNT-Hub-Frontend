@@ -42,7 +42,7 @@ export default function UsernameForm({ onClose }: UsernameFormProps) {
       try {
         const payload = cleanPatchPayload(values)
 
-        await editUser({ body: payload }).unwrap()
+        await editUser(payload).unwrap()
 
         toast.success("Usuário editado com sucesso!");
         onClose();

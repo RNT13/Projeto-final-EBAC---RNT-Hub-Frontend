@@ -13,7 +13,7 @@ import { ComentButtonDiv, ComentsWindowContainer, ComentsWindowContent, ComentTe
 
 type ComentsWindowProps = {
   isOpen: boolean;
-  postId: string
+  postId: string;
 }
 
 export default function ComentsWindow({ isOpen, postId }: ComentsWindowProps) {
@@ -26,10 +26,7 @@ export default function ComentsWindow({ isOpen, postId }: ComentsWindowProps) {
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
-        await createComment({
-          postId,
-          content: values.content
-        }).unwrap();
+        await createComment({ postId: Number(postId), content: values.content }).unwrap();
 
         toast.success("Comentario criada com sucesso!");
         resetForm();
@@ -48,7 +45,7 @@ export default function ComentsWindow({ isOpen, postId }: ComentsWindowProps) {
     <ComentsWindowContainer>
       <ComentsWindowContent $isOpen={isOpen}>
         <div>
-          {comments?.map(comment => (
+          {comments?.map((comment: Comment) => (
             <UserComents key={comment.id}>
               <div>
                 <UserAvatarImage user={comment.user} size="xsmall" position="flex" border="true" />

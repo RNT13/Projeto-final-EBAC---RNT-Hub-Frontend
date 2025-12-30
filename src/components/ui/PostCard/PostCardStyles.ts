@@ -14,6 +14,7 @@ export const PostCardContent = styled.div`
   ${media.tablet} {
     ${Box} {
       padding: 6px;
+      gap: 6px;
     }
   }
 `
@@ -46,19 +47,12 @@ export const PostCardBody = styled.div`
 export const PostImage = styled.div`
   position: relative;
   width: 100%;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
+  height: 100%;
   img {
-    border-radius: 12px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-  }
-
-  ${media.tablet} {
-    height: 550px;
+    border-radius: 12px;
   }
 `
 
@@ -75,13 +69,9 @@ export const PostButtonContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 5px;
-  margin-top: 10px;
 
   svg {
     width: 25px;
     height: 25px;
-  }
-
-  ${media.tablet} {
   }
 `

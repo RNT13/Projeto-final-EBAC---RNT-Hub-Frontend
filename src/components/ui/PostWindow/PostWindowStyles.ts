@@ -6,7 +6,7 @@ export const PostWindowContainer = styled.div`
 `
 
 export const PostWindowContent = styled.div`
-  width: 450px;
+  width: 100%;
   height: 100%;
   color: ${props => props.theme.colors.textColor};
 `

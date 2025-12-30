@@ -27,11 +27,11 @@ export function LoginForm({ loginSuccess, onClose }: LoginProps) {
       email: yup.string().email('E-mail inválido').required('Campo obrigatório'),
       password: yup.string().min(6, 'Minimo de 6 caracteres').required('Campo obrigatório'),
     }),
-    onSubmit: async (values: LoginPayload) => {
+    onSubmit: async (values) => {
       try {
         const response = await loginUser(values).unwrap();
 
-        dispatch(setCredentials({ token: response.access, user: response.user }));
+        dispatch(setCredentials({ token: response.access, refreshToken: response.refresh, user: response.user }));
 
         toast.success(response.message || "Login realizado com sucesso!");
         form.resetForm();

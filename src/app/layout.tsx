@@ -1,6 +1,5 @@
 import Footer from '@/components/layout/footer/Footer'
 import { Providers } from '@/components/providers'
-import PageWrapper from '@/components/ui/PageWrapper/PageWrapper'
 import ToasterApp from '@/components/ui/Toaster/Toaster'
 import StyledComponentsRegistry from '@/lib/styled-components-registry'
 import { GlobalStyles } from '@/styles/globalStyles'
@@ -31,13 +30,13 @@ export default function RootLayout({
       <body>
         <StyledComponentsRegistry>
           <GlobalStyles />
+          <ToasterApp />
+
           <Providers>
-            <PageWrapper>
-              {children}
-              <Footer />
-            </PageWrapper>
-            <ToasterApp />
+            {children}
+            <Footer />
           </Providers>
+
         </StyledComponentsRegistry>
       </body>
     </html>

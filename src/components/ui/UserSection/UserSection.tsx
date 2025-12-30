@@ -17,7 +17,7 @@ export default function UserSection({ onClick }: UserSectionProps) {
           {user?.full_name
             ?.split(' ')[0]
             ?.toLowerCase()
-            ?.replace(/^\w/, c => c.toUpperCase())}
+            ?.replace(/^\w/, (c: string) => c.toUpperCase())}
         </Button>
       </UserSectionContent>
     </UserSectionContainer>

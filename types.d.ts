@@ -84,113 +84,6 @@ declare global {
 
   type TagType = keyof typeof TAG_CONFIG
 
-  // -------------------------------------
-  // Enums (Status e Roles)
-  // -------------------------------------
-  enum UserRole {
-    ADMIN = 'ADMIN',
-    USER = 'USER'
-  }
-
-  // -------------------------------------
-  // Entidades do Banco de Dados (Models)
-  // -------------------------------------
-
-  export interface User {
-    id: number
-    email: string
-    username: string
-    full_name: string
-    role: UserRole
-    user_tag: string
-    bio: string
-    avatar: string
-    user_bg: string
-    website: string
-    location: string
-    is_verified: boolean
-    date_joined: Date
-    followers_count: string
-    following_count: string
-    is_following: boolean
-  }
-
-  // -------------------------------------
-  // Payloads e Respostas de API
-  // -------------------------------------
-
-  // Auth
-  interface RegisterPayload {
-    email: string
-    username: string
-    full_name: string
-    password: string
-    confirm_password: string
-  }
-  interface RegisterResponse {
-    user: User
-    token: string
-    message: string
-    success: boolean
-  }
-  interface LoginPayload {
-    email: string
-    password: string
-  }
-  interface LoginResponse {
-    access: string
-    user: User
-    token: string
-    message: string
-    success: boolean
-  }
-
-  interface RefreshResponse {
-    access: string
-  }
-
-  type SectionType = 'noticias' | 'videos' | 'fotos' | 'chat' | 'perfil' | 'mensagens' | 'notificacoes' | 'configuracoes' | 'usuarios'
-
-  type SettingsWindow = 'name' | 'password'
-
-  interface Post {
-    id: string
-    author: User
-    author_username: string
-    content: string
-    is_liked: boolean
-    image: string
-    created_at: string
-    updated_at: string
-    likes_count: number
-    comments_count: number
-  }
-
-  interface NewPostPayload {
-    content: string
-    image?: File | string
-  }
-
-  interface Comment {
-    id: number
-    user: User
-    post_id: number
-    content: string
-    created_at: string
-  }
-
-  interface NewPostResponse {
-    id: string
-    author: User
-    author_username: string
-    content: string
-    image: string
-    createdAt: Date
-    updatedAt: Date
-    likes_count: number
-    comments_count: number
-  }
-
   type BoxProps = {
     direction: 'row' | 'column'
     $justify?: 'center' | 'space-between' | 'space-around' | 'start' | 'end'
@@ -201,6 +94,147 @@ declare global {
     $padding?: 'xm' | 'sm' | 'md' | 'lg' | 'fit'
   }
 
+  type SectionType =
+    | 'feed'
+    | 'explore'
+    | 'trending'
+    | 'videos'
+    | 'fotos'
+    | 'chat'
+    | 'perfil'
+    | 'mensagens'
+    | 'notificacoes'
+    | 'configuracoes'
+    | 'usuarios'
+
+  type SettingsWindow = 'name' | 'password'
+
+  // Tipagem da API
+
+  type User = {
+    id: number
+    email: string
+    username: string
+    full_name: string
+    role: RoleEnum
+    user_tag?: string
+    bio?: string
+    avatar?: string
+    user_bg?: string
+    website?: string
+    location?: string
+    is_verified?: boolean
+    date_joined: Date
+    followers_count?: number
+    following_count?: number
+    posts_count?: number
+    is_follower: boolean
+    is_following?: boolean
+  }
+
+  interface UserPublic {
+    username?: string
+    user_tag?: string
+    avatar?: string
+    is_verified?: boolean
+    is_follower: boolean
+    is_following?: boolean
+  }
+
+  interface FollowUser {
+    id: number
+    user: User
+  }
+
+  interface Post {
+    id: number
+    author: UserPublic
+    content: string
+    image?: string
+    is_liked: boolean
+    created_at: Date
+    likes_count: number
+    comments_count: number
+  }
+
+  interface PostPayload {
+    content: string | null
+    image?: string | null
+  }
+
+  interface ChangePasswordPayload {
+    current_password: string
+    new_password: string
+  }
+
+  interface FollowResponse {
+    id?: number
+    follower?: UserPublic
+    follower_username?: string
+    following?: UserPublic
+    following_username?: string
+    created_at?: Date
+  }
+
+  interface Like {
+    id?: number
+    username?: string
+    post?: Post
+    created_at?: Date
+  }
+
+  interface Notification {
+    id?: number
+    author?: UserPublic
+    user_username?: string
+    text?: string
+    is_read?: boolean
+    created_at?: Date
+  }
+
+  // Tipagem das respostas da API
+  interface RefreshResponse {
+    access: string
+  }
+
+  interface Comment {
+    id: string
+    user: UserPublic
+    content: string
+    image?: string
+    is_liked: string
+    created_at: string
+    likes_count: string
+    comments_count: string
+  }
+
+  interface LoginRequest {
+    email: string
+    password: string
+  }
+
+  interface LoginResponse {
+    user: User
+    message: string
+    access: string
+    refresh: string
+  }
+
+  interface RegisterRequest {
+    id?: number
+    email: string
+    full_name: string
+    username: string
+    password: string
+    confirm_password: string
+  }
+
+  interface RegisterResponse {
+    message: string
+    access: string
+    refresh: string
+  }
+
   interface PaginatedResponse<T> {
     count: number
     next: string | null
@@ -208,7 +242,7 @@ declare global {
     results: T[]
   }
 
-  interface ApiErrorResponse {
+  interface ApiResponse {
     status: number
     data: {
       detail: string

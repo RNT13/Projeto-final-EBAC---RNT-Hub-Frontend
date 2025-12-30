@@ -4,8 +4,7 @@ import { styled } from 'styled-components'
 
 export const RegisterFormContainer = styled.div`
   position: relative;
-  width: 100vw;
-  max-width: 500px;
+  width: 100%;
   height: 100%;
 
   ${CloseButton} {
@@ -17,7 +16,6 @@ export const RegisterFormContainer = styled.div`
 
 export const RegisterFormContent = styled.div`
   height: 100%;
-  max-height: 100dvh;
   display: flex;
   flex-direction: column;
   gap: 10px;

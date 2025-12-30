@@ -2,7 +2,7 @@ import { Box } from '@/styles/globalStyles'
 import { media } from '@/styles/theme'
 import { styled } from 'styled-components'
 
-export const NewsSectionContainer = styled.div`
+export const HypeFeedContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;

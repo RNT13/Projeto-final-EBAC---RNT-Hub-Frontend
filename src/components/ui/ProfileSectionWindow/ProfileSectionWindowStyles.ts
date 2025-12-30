@@ -1,4 +1,3 @@
-import { media } from '@/styles/theme'
 import { styled } from 'styled-components'
 
 export const ProfileSectionWindowContainer = styled.div`
@@ -6,24 +5,18 @@ export const ProfileSectionWindowContainer = styled.div`
 `
 
 export const ProfileSectionWindowContent = styled.div`
-  width: 450px;
+  width: 100%;
   height: 100%;
-  max-height: 100vh;
-
   display: flex;
   flex-direction: column;
 
   p {
-    text-align: start;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
   }
 
   input,
   textarea {
-    margin-bottom: 12px;
-  }
-
-  ${media.mobile} {
+    margin-bottom: 5px;
   }
 `
 
@@ -35,6 +28,7 @@ export const ProfileSectionWindowHeader = styled.div`
   flex-direction: column;
   align-items: start;
   justify-content: center;
+  border-bottom: 1px solid ${props => props.theme.colors.baseglass.light02};
 `
 
 export const ProfileSectionWindowBody = styled.div`

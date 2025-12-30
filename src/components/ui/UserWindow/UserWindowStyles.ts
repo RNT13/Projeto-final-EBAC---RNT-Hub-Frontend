@@ -8,8 +8,8 @@ type Props = {
 
 export const UserWindowContainer = styled.div<Props>`
   position: absolute;
-  top: 80px;
-  right: 0px;
+  top: 85px;
+  right: 20px;
   width: fit-content;
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@ export const UserWindowContainer = styled.div<Props>`
   ${slideFromTop}
 
   ${media.mobile} {
-    top: 173px;
+    top: 178px;
   }
 `
 

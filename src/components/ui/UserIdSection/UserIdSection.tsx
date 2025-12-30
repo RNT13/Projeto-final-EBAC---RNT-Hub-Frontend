@@ -1,24 +1,44 @@
 import Loading from "@/app/loading"
 import { useAppSelector } from "@/hooks/useAppDispatch"
-import { useGetFollowersQuery, useGetFollowingQuery, useGetPopularUsersQuery, useGetUsersBySearchQuery, useGetUsersQuery } from "@/redux/slices/apiSlice"
+import {
+  useGetCurrentUserQuery,
+  useGetFollowersQuery,
+  useGetFollowingQuery,
+  useGetPopularUsersQuery,
+  useGetUsersBySearchQuery
+} from "@/redux/slices/apiSlice"
 import { RootState } from "@/redux/store"
 import { UserRenderSection } from "../UserRenderSection/UserRenderSection"
-import { UserIdSectionContainer, UserIdSectionContent } from "./UserIdSectionStyles"
-
-
+import {
+  UserIdSectionContainer,
+  UserIdSectionContent
+} from "./UserIdSectionStyles"
 
 export const UserIdSection = () => {
-  const search = useAppSelector((state: RootState) => state.search.value);
-  const isSearching = search.length >= 2;
 
-  const { data: allUsers, isLoading: allLoading } = useGetUsersQuery();
-  const { data: searchUsers, isLoading: searchLoading } = useGetUsersBySearchQuery(search, { skip: !isSearching });
-  const { data: popularUsers } = useGetPopularUsersQuery();
+  const search = useAppSelector((state: RootState) => state.search.value)
+  const isSearching = search.length >= 2
 
-  const { data: followers } = useGetFollowersQuery(123);
-  const { data: following } = useGetFollowingQuery(123);
+  const { data: currentUser, isLoading: userLoading } = useGetCurrentUserQuery()
 
-  if (allLoading || searchLoading) return <Loading />;
+  const userId = currentUser?.id
+
+  const { data: searchUsers, isLoading: searchLoading } = useGetUsersBySearchQuery(search, { skip: !isSearching })
+
+  const { data: popularUsers } = useGetPopularUsersQuery()
+
+  const { data: followers } = useGetFollowersQuery(userId!, { skip: !userId })
+
+  const { data: following } = useGetFollowingQuery(userId!, { skip: !userId })
+
+  console.log({
+    currentUser,
+    popularUsers,
+    followers,
+    following
+  })
+
+  if (userLoading || searchLoading) return <Loading />
 
   return (
     <UserIdSectionContainer>
@@ -33,7 +53,7 @@ export const UserIdSection = () => {
         )}
 
         {/* 🌍 DEFAULT MODE */}
-        {!isSearching && allUsers && (
+        {!isSearching && (
           <>
             <UserRenderSection
               title="🔥 Usuários mais populares"
@@ -54,7 +74,5 @@ export const UserIdSection = () => {
 
       </UserIdSectionContent>
     </UserIdSectionContainer>
-  );
-};
-
-
+  )
+}

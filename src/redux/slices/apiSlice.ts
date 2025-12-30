@@ -62,7 +62,7 @@ export const apiSlice = createApi({
 
   endpoints: builder => ({
     /* ================= AUTH ================= */
-    loginUser: builder.mutation<LoginResponse, LoginPayload>({
+    loginUser: builder.mutation<LoginResponse, LoginRequest>({
       query: body => ({
         url: 'api/token/',
         method: 'POST',
@@ -70,7 +70,7 @@ export const apiSlice = createApi({
       })
     }),
 
-    registerUser: builder.mutation<RegisterResponse, RegisterPayload>({
+    registerUser: builder.mutation<RegisterResponse, RegisterRequest>({
       query: body => ({
         url: 'api/v1/users/register/',
         method: 'POST',
@@ -97,7 +97,8 @@ export const apiSlice = createApi({
     }),
 
     getPopularUsers: builder.query<PaginatedResponse<User>, void>({
-      query: () => '/api/v1/users/popular/'
+      query: () => 'api/v1/users/popular/',
+      providesTags: ['User']
     }),
 
     getUserById: builder.query<User, number>({
@@ -110,8 +111,8 @@ export const apiSlice = createApi({
       providesTags: ['User']
     }),
 
-    editUser: builder.mutation<User, { body: Partial<User> }>({
-      query: ({ body }) => ({
+    editUser: builder.mutation<User, Partial<User>>({
+      query: body => ({
         url: 'api/v1/users/me/',
         method: 'PATCH',
         body
@@ -120,12 +121,12 @@ export const apiSlice = createApi({
     }),
 
     /* ================= POSTS ================= */
-    getPosts: builder.query<PaginatedResponse<Post>, void>({
+    getPosts: builder.query<Post[], void>({
       query: () => 'api/v1/posts/',
       providesTags: ['Post']
     }),
 
-    getPostById: builder.query<PaginatedResponse<Post>, number>({
+    getPostById: builder.query<Post, number>({
       query: id => `api/v1/posts/${id}/`,
       providesTags: ['Post']
     }),
@@ -135,7 +136,7 @@ export const apiSlice = createApi({
       providesTags: ['Post']
     }),
 
-    createPost: builder.mutation<NewPostResponse, NewPostPayload | FormData>({
+    createPost: builder.mutation<Post, PostPayload>({
       query: body => ({
         url: 'api/v1/posts/',
         method: 'POST',
@@ -144,7 +145,7 @@ export const apiSlice = createApi({
       invalidatesTags: ['Post']
     }),
 
-    updatePost: builder.mutation<Post, { id: string; body: Partial<Post> }>({
+    updatePost: builder.mutation<Post, { id: number; body: FormData }>({
       query: ({ id, body }) => ({
         url: `api/v1/posts/${id}/`,
         method: 'PATCH',
@@ -153,7 +154,7 @@ export const apiSlice = createApi({
       invalidatesTags: ['Post']
     }),
 
-    deletePost: builder.mutation<void, string>({
+    deletePost: builder.mutation<void, number>({
       query: id => ({
         url: `api/v1/posts/${id}/`,
         method: 'DELETE'
@@ -167,7 +168,7 @@ export const apiSlice = createApi({
       providesTags: ['Comment']
     }),
 
-    createComment: builder.mutation<Comment, { postId: string; content: string }>({
+    createComment: builder.mutation<Comment, { postId: number; content: string }>({
       query: ({ postId, content }) => ({
         url: `api/v1/posts/${postId}/comments/`,
         method: 'POST',
@@ -177,7 +178,7 @@ export const apiSlice = createApi({
     }),
 
     /* ================= LIKES ================= */
-    likePost: builder.mutation<void, { post: string }>({
+    likePost: builder.mutation<Like, { postId: number }>({
       query: body => ({
         url: 'api/v1/likes/',
         method: 'POST',
@@ -186,7 +187,7 @@ export const apiSlice = createApi({
       invalidatesTags: ['Post']
     }),
 
-    unlikePost: builder.mutation<void, string>({
+    unlikePost: builder.mutation<Like, number>({
       query: id => ({
         url: `api/v1/likes/${id}/`,
         method: 'DELETE'
@@ -195,20 +196,20 @@ export const apiSlice = createApi({
     }),
 
     /* ================= FOLLOWS ================= */
-    followUser: builder.mutation<void, string>({
+    followUser: builder.mutation<PaginatedResponse<FollowResponse>, string>({
       query: username => ({
         url: `api/v1/users/${username}/follow/`,
         method: 'POST'
       }),
-      invalidatesTags: ['User']
+      invalidatesTags: ['User', 'Follow', 'Post']
     }),
 
-    unfollowUser: builder.mutation<void, string>({
+    unfollowUser: builder.mutation<PaginatedResponse<FollowResponse>, string>({
       query: username => ({
         url: `api/v1/users/${username}/follow/`,
         method: 'DELETE'
       }),
-      invalidatesTags: ['User']
+      invalidatesTags: ['User', 'Follow', 'Post']
     }),
 
     getFollowers: builder.query<PaginatedResponse<User>, number>({
@@ -248,7 +249,7 @@ export const apiSlice = createApi({
       providesTags: ['Notification']
     }),
 
-    markNotificationRead: builder.mutation<void, string>({
+    markNotificationRead: builder.mutation<Notification, number>({
       query: id => ({
         url: `api/v1/notifications/${id}/read/`,
         method: 'PATCH'
@@ -256,7 +257,7 @@ export const apiSlice = createApi({
       invalidatesTags: ['Notification']
     }),
 
-    markAllNotificationsRead: builder.mutation<void, void>({
+    markAllNotificationsRead: builder.mutation<Notification, void>({
       query: () => ({
         url: 'api/v1/notifications/read_all/',
         method: 'PATCH'
@@ -265,7 +266,7 @@ export const apiSlice = createApi({
     }),
 
     /* ================= PASSWORD ================= */
-    changePassword: builder.mutation<{ detail: string }, { current_password: string; new_password: string }>({
+    changePassword: builder.mutation<void, ChangePasswordPayload>({
       query: body => ({
         url: 'api/v1/users/me/change-password/',
         method: 'PATCH',

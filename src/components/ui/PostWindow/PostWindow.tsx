@@ -18,22 +18,22 @@ type PostWindowProps = {
 export default function PostWindow({ onClose }: PostWindowProps) {
   const form = useFormik({
     initialValues: {
-      content: '',
-      image: null as File | null,
+      content: null,
+      image: null,
     },
     validationSchema: yup.object({
-      content: yup.string().required('Campo obrigatório'),
-    }),
+      content: yup.string().nullable().required('O Post precisa de uma legenda'),
+      image: yup.mixed().nullable(),
+    }).test(
+      "content-or-image",
+      "A publicação precisa ter texto ou imagem",
+      (values) => {
+        return Boolean(values?.content || values?.image)
+      }
+    ),
     onSubmit: async (values) => {
       try {
-        const formData = new FormData();
-        formData.append("content", values.content);
-
-        if (values.image) {
-          formData.append("image", values.image);
-        }
-
-        await createPost(formData).unwrap();
+        await createPost(values).unwrap();
 
         toast.success("Publicação criada com sucesso!");
         form.resetForm();
@@ -42,7 +42,6 @@ export default function PostWindow({ onClose }: PostWindowProps) {
         handleApiError(err);
       }
     }
-
   })
 
   const { data: user } = useGetCurrentUserQuery();
@@ -52,7 +51,7 @@ export default function PostWindow({ onClose }: PostWindowProps) {
   return (
     <PostWindowContainer>
       <PostWindowContent>
-        <Box $bgColor="glass" direction="column" height="lg" width="lg" >
+        <Box $bgColor="glass" direction="column" height="lg" width="lg">
           <PostWindowHeader>
             <div>
               <h2>Criar publicação</h2>
@@ -69,10 +68,13 @@ export default function PostWindow({ onClose }: PostWindowProps) {
             </PostWindowDetails>
           </PostWindowHeader>
 
-          <FormikProvider value={form} >
+          <FormikProvider value={form}>
             <form onSubmit={form.handleSubmit}>
               <PostWindowBody>
-                <FormikMaskedInput variant="textarea" name="content" showError={false} placeholder="Em que Você esta pensando..." />
+                <FormikMaskedInput
+                  variant="textarea"
+                  name="content"
+                  placeholder="Em que Você esta pensando..." />
               </PostWindowBody>
 
               <PostWindowFooter>

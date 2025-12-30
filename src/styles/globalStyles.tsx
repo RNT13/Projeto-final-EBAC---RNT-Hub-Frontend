@@ -15,6 +15,7 @@ export const GlobalStyles = createGlobalStyle`
 
     body {
       background-image: linear-gradient(120deg, ${theme.colors.baseCyan.dark},  ${theme.colors.baseBlue.base}, ${theme.colors.baseRed.light});
+      background-attachment: fixed;
       font-family: var(--font-roboto);
     }
 

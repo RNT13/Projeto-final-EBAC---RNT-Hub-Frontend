@@ -3,10 +3,7 @@
 import { useField } from "formik";
 import { BaseMaskedInput } from "./BaseMaskedInput";
 
-type FormikMaskedInputProps = {
-  name: string;
-} & Omit<
-  React.ComponentProps<typeof BaseMaskedInput>,
+type FormikMaskedInputProps = { name: string; } & Omit<React.ComponentProps<typeof BaseMaskedInput>,
   "value" | "onChange" | "error" | "touched"
 >;
 

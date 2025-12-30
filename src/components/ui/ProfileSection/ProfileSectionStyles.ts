@@ -97,6 +97,13 @@ export const UserButtonDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: end;
+
+  ${media.tablet} {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 export const ProfileInfo = styled.div`

@@ -34,6 +34,7 @@ export default function PasswordForm({ onClose }: PasswordFormProps) {
     onSubmit: async values => {
       try {
         await changePassword(values).unwrap()
+
         toast.success('Senha alterada com sucesso!')
         onClose()
       } catch (err) {

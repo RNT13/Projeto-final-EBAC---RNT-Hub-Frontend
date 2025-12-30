@@ -3,10 +3,11 @@ import UserIdCard from "../UserIdCard/UserIdCard";
 
 interface UserRenderSection {
   title: string;
-  data: any[];
+  data: User[];
 }
 
 export function UserRenderSection({ title, data }: UserRenderSection) {
+
   return (
     <Box $bgColor="glass" direction="column" height="lg" width="lg" $align="center" $justify="center"    >
       <h2>{title}</h2>

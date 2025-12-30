@@ -1,6 +1,5 @@
 "use client"
 
-import Loading from "@/app/loading";
 import { useLikePostMutation, useUnlikePostMutation } from "@/redux/slices/apiSlice";
 import { Box } from "@/styles/globalStyles";
 import Image from "next/image";
@@ -23,10 +22,6 @@ export default function PostCard({ post }: PostCardProps) {
 
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
 
-  if (!post.image) {
-    return <Loading size="lg" />;
-  }
-
   return (
     <PostCardContainer>
       <PostCardContent>
@@ -48,7 +43,7 @@ export default function PostCard({ post }: PostCardProps) {
 
             <PostImage>
               {post.image && (
-                <Image src={post.image} fill sizes="100%" loading="eager" alt="Post Image" />
+                <Image src={post.image} width={500} height={500} loading="eager" alt="Post Image" />
               )}
             </PostImage>
           </PostCardBody>
@@ -63,7 +58,7 @@ export default function PostCard({ post }: PostCardProps) {
                   leftIcon={<FaHeart color={post.is_liked ? "red" : "white"} />}
                   disabled={likeLoading || unlikeLoading}
                   fullWidth
-                  onClick={() => post.is_liked ? unlikePost(post.id) : likePost({ post: post.id })}
+                  onClick={() => post.is_liked ? unlikePost(post.id) : likePost({ postId: post.id })}
                 >
                   {post.likes_count}
                 </Button>
@@ -76,7 +71,7 @@ export default function PostCard({ post }: PostCardProps) {
             </PostCardFooter>
 
           </PostCardFooter>
-          <ComentsWindow postId={post.id} isOpen={isCommentsOpen} />
+          <ComentsWindow postId={post.id.toString()} isOpen={isCommentsOpen} />
         </Box>
       </PostCardContent>
     </PostCardContainer>
