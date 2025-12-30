@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast'
 
 export function handleApiError(err: unknown) {
-  const error = err as ApiErrorResponse
+  const error = err as ApiResponse
 
   if (error?.data) {
     // Caso especial: JWT / DRF `detail`
