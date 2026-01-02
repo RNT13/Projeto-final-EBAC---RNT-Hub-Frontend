@@ -1,17 +1,18 @@
 import Loading from "@/app/loading";
-import imageBG from '@/assets/default_bg.avif';
-import { useFollowUserMutation, useGetCurrentUserQuery, useUnfollowUserMutation } from "@/redux/slices/apiSlice";
+import { useFollowUserMutation, useGetCurrentUserQuery, useGetPostsByUsernameQuery, useUnfollowUserMutation } from "@/redux/slices/apiSlice";
 import { Box } from "@/styles/globalStyles";
 import { displayWebsite, normalizeWebsite } from "@/utils/website";
+import { skipToken } from "@reduxjs/toolkit/query";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { FaCalendarAlt, FaLink } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { RiUserFollowFill, RiUserUnfollowFill } from "react-icons/ri";
 import Button from "../Button/Button";
+import PostCard from "../PostCard/PostCard";
 import { Profile, ProfileAvatarSection, ProfileBg, ProfileFooter, ProfileInfo } from "../ProfileSection/ProfileSectionStyles";
 import UserAvatarImage from "../UserAvatar/UserAvatarImage";
-import { PublicProfileSectionContainer, PublicProfileSectionContent, UserButtonDiv, UserInfo } from "./PublicProfileSectionStyles";
+import { PostContainer, PublicProfileSectionContainer, PublicProfileSectionContent, UserButtonDiv, UserInfo } from "./PublicProfileSectionStyles";
 
 type PublicPublicProfileSectionProps = {
   user: User
@@ -19,6 +20,7 @@ type PublicPublicProfileSectionProps = {
 
 export default function PublicPublicProfileSection({ user }: PublicPublicProfileSectionProps) {
   const { data: currentUser } = useGetCurrentUserQuery();
+  const { data: userPosts } = useGetPostsByUsernameQuery(user?.username ?? skipToken);
   const [followUser, { isLoading: followingLoading }] = useFollowUserMutation();
   const [unfollowUser, { isLoading: unfollowingLoading }] = useUnfollowUserMutation();
 
@@ -55,7 +57,7 @@ export default function PublicPublicProfileSection({ user }: PublicPublicProfile
       <Box $bgColor="glass" $padding="fit" direction="column" height="lg" width="lg" $align="center" $justify="center">
         <PublicProfileSectionContent>
           <ProfileBg>
-            <Image src={user.user_bg || imageBG} alt="Background" fill />
+            <Image src={user.user_bg || '/assets/default_bg.avif'} alt="Background" fill loading="eager" />
           </ProfileBg>
           <Profile>
             <ProfileAvatarSection>
@@ -127,6 +129,12 @@ export default function PublicPublicProfileSection({ user }: PublicPublicProfile
           </Profile>
         </PublicProfileSectionContent>
       </Box>
+      <PostContainer>
+        <h2>Posts de {user?.full_name}</h2>
+        {userPosts?.results.map(post => (
+          <PostCard key={post.id} post={post} />
+        ))}
+      </PostContainer>
     </PublicProfileSectionContainer>
   );
 }

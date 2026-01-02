@@ -282,7 +282,7 @@ const activeStyles = {
   glass: css`
     background: ${theme.colors.baseglass.light04};
     border-color: ${theme.colors.baseglass.light08};
-    color: ${theme.colors.baseBlack.dark50};
+    color: ${theme.colors.baseBlue.base};
     box-shadow: 2px 2px 2px ${theme.colors.baseglass.light08};
   `
 }

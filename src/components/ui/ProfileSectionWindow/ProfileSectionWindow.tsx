@@ -1,6 +1,4 @@
 import Loading from "@/app/loading";
-import defaultAvatar from '@/assets/avatar_default.svg';
-import defaultBG from '@/assets/default_bg.avif';
 import { useEditUserMutation, useGetCurrentUserQuery } from "@/redux/slices/apiSlice";
 import { Box, CloseButton } from "@/styles/globalStyles";
 import { cleanPatchPayload } from "@/utils/clearPatch";
@@ -84,7 +82,7 @@ export default function ProfileSectionWindow({ onClose }: Props) {
                     name="user_bg"
                     label="Background"
                     value={form.values.user_bg}
-                    fallback={user.user_bg || defaultBG}
+                    fallback={user.user_bg || '/assets/default_bg.avif'}
                     shape="rectangle"
                     setUploading={setUploading}
                   />
@@ -95,7 +93,7 @@ export default function ProfileSectionWindow({ onClose }: Props) {
                     name="avatar"
                     label="Avatar"
                     value={form.values.avatar}
-                    fallback={user.avatar || defaultAvatar}
+                    fallback={user.avatar || '/assets/avatar_default.svg'}
                     shape="square"
                     setUploading={setUploading}
                   />

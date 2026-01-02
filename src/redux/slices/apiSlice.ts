@@ -85,29 +85,28 @@ export const apiSlice = createApi({
     }),
 
     getUsers: builder.query<PaginatedResponse<User>, void>({
-      query: () => 'api/v1/users/',
+      query: () => 'api/v1/users/all-users',
       providesTags: ['User']
     }),
 
     getUsersBySearch: builder.query<PaginatedResponse<User>, string>({
       query: search => ({
-        url: `/api/v1/users/`,
+        url: `api/v1/users/all-users`,
         params: search ? { search } : {}
       })
     }),
 
     getPopularUsers: builder.query<PaginatedResponse<User>, void>({
-      query: () => 'api/v1/users/popular/',
-      providesTags: ['User']
+      query: () => 'api/v1/users/popular-users/'
     }),
 
     getUserById: builder.query<User, number>({
-      query: id => `api/v1/users/${id}/`,
+      query: id => `api/v1/users/all-users/${id}/`,
       providesTags: ['User']
     }),
 
     getUserByUsername: builder.query<User, string>({
-      query: username => `api/v1/users/${username}/`,
+      query: username => `api/v1/users/all-users/${username}/`,
       providesTags: ['User']
     }),
 
@@ -117,16 +116,16 @@ export const apiSlice = createApi({
         method: 'PATCH',
         body
       }),
-      invalidatesTags: ['User']
+      invalidatesTags: ['User', 'Follow', 'Notification', 'Post']
     }),
 
     /* ================= POSTS ================= */
-    getPosts: builder.query<Post[], void>({
+    getPosts: builder.query<PaginatedResponse<Post>, void>({
       query: () => 'api/v1/posts/',
       providesTags: ['Post']
     }),
 
-    getPostById: builder.query<Post, number>({
+    getPostById: builder.query<PaginatedResponse<Post>, number>({
       query: id => `api/v1/posts/${id}/`,
       providesTags: ['Post']
     }),
@@ -142,7 +141,7 @@ export const apiSlice = createApi({
         method: 'POST',
         body
       }),
-      invalidatesTags: ['Post']
+      invalidatesTags: ['Post', 'User', 'Follow', 'Notification']
     }),
 
     updatePost: builder.mutation<Post, { id: number; body: FormData }>({
@@ -174,31 +173,36 @@ export const apiSlice = createApi({
         method: 'POST',
         body: { content }
       }),
-      invalidatesTags: ['Comment']
+      invalidatesTags: ['Comment', 'Post']
     }),
 
     /* ================= LIKES ================= */
-    likePost: builder.mutation<Like, { postId: number }>({
-      query: body => ({
-        url: 'api/v1/likes/',
-        method: 'POST',
-        body
+    toggleLike: builder.mutation<LikeResponse, number>({
+      query: postId => ({
+        url: `api/v1/posts/${postId}/like/`,
+        method: 'POST'
       }),
       invalidatesTags: ['Post']
     }),
 
-    unlikePost: builder.mutation<Like, number>({
+    likePost: builder.mutation<LikeResponse, number>({
       query: id => ({
-        url: `api/v1/likes/${id}/`,
+        url: `api/v1/posts/${id}/likes/`,
+        method: 'POST'
+      })
+    }),
+
+    unlikePost: builder.mutation<LikeResponse, number>({
+      query: id => ({
+        url: `api/v1/posts/${id}/likes/`,
         method: 'DELETE'
-      }),
-      invalidatesTags: ['Post']
+      })
     }),
 
     /* ================= FOLLOWS ================= */
     followUser: builder.mutation<PaginatedResponse<FollowResponse>, string>({
       query: username => ({
-        url: `api/v1/users/${username}/follow/`,
+        url: `api/v1/users/all-users/${username}/follow/`,
         method: 'POST'
       }),
       invalidatesTags: ['User', 'Follow', 'Post']
@@ -206,7 +210,7 @@ export const apiSlice = createApi({
 
     unfollowUser: builder.mutation<PaginatedResponse<FollowResponse>, string>({
       query: username => ({
-        url: `api/v1/users/${username}/follow/`,
+        url: `api/v1/users/all-users/${username}/follow/`,
         method: 'DELETE'
       }),
       invalidatesTags: ['User', 'Follow', 'Post']
@@ -268,7 +272,7 @@ export const apiSlice = createApi({
     /* ================= PASSWORD ================= */
     changePassword: builder.mutation<void, ChangePasswordPayload>({
       query: body => ({
-        url: 'api/v1/users/me/change-password/',
+        url: 'api/v1/users/all-users/me/change-password/',
         method: 'PATCH',
         body
       })
@@ -306,6 +310,7 @@ export const {
   useCreateCommentMutation,
 
   //====== LIKES ======//
+  useToggleLikeMutation,
   useLikePostMutation,
   useUnlikePostMutation,
 

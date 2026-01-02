@@ -146,6 +146,12 @@ declare global {
     user: User
   }
 
+  type Follow = {
+    id: number
+    follower_username?: string
+    following_username?: string
+  }
+
   interface Post {
     id: number
     author: UserPublic
@@ -176,11 +182,9 @@ declare global {
     created_at?: Date
   }
 
-  interface Like {
-    id?: number
-    username?: string
-    post?: Post
-    created_at?: Date
+  interface LikeResponse {
+    liked: boolean
+    likes_count: number
   }
 
   interface Notification {
@@ -218,6 +222,7 @@ declare global {
     message: string
     access: string
     refresh: string
+    success: boolean
   }
 
   interface RegisterRequest {

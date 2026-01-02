@@ -4,6 +4,7 @@ import { LoginForm } from "@/components/ui/LoginForm/LoginForm"
 import LoginWindow from "@/components/ui/LoginWindow/LoginWindow"
 import { ModalWrapper } from "@/components/ui/ModalWrapper/ModalWrapper"
 import { RegisterForm } from "@/components/ui/RegisterForm/RegisterForm"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { HomeContainer, HomeContent, HomeMain, HomeTitle, LeftDiv, RightDiv } from "./homeStyles"
@@ -17,6 +18,7 @@ export default function Home() {
     <HomeContainer className="container">
       <HomeContent>
         <HomeTitle>
+          <Image src='/assets/logo_rnt_hub.png' alt="Logo" width={150} height={150} loading="eager" />
           <h1>RNT Hub</h1>
         </HomeTitle>
         <HomeMain>

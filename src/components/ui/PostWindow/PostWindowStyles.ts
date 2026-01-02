@@ -1,14 +1,20 @@
+import { theme } from '@/styles/theme'
 import { styled } from 'styled-components'
 
 export const PostWindowContainer = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
+
+  button {
+    z-index: 100;
+  }
 `
 
 export const PostWindowContent = styled.div`
   width: 100%;
   height: 100%;
-  color: ${props => props.theme.colors.textColor};
+  color: ${theme.colors.textColor};
 `
 
 export const PostWindowHeader = styled.div`

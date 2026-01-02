@@ -55,7 +55,7 @@ export default function UsernameForm({ onClose }: UsernameFormProps) {
   return (
     <Box $bgColor="glass" direction="column" height="lg" width="lg" $align="center" $justify="center">
       <UsernameFormContainer>
-        <CloseButton onClick={onClose}><IoCloseCircleSharp /></CloseButton>
+        <CloseButton type="button" onClick={onClose}><IoCloseCircleSharp /></CloseButton>
         <UsernameFormHeader>
           <UserAvatarImage user={user} size="small" position="flex" border="true" />
           <h2>Editar nome de usuário</h2>

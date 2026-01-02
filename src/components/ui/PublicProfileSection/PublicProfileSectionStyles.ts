@@ -1,10 +1,20 @@
-import { media } from '@/styles/theme'
+import { Box } from '@/styles/globalStyles'
+import { media, theme } from '@/styles/theme'
 import { styled } from 'styled-components'
 
 export const PublicProfileSectionContainer = styled.div`
   width: 100%;
   height: 100%;
-  color: ${props => props.theme.colors.textColor};
+  color: ${theme.colors.textColor};
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  ${media.tablet} {
+    ${Box} {
+      padding: 6px;
+    }
+  }
 `
 
 export const PublicProfileSectionContent = styled.div`
@@ -15,6 +25,15 @@ export const PublicProfileSectionContent = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`
+
+export const PostContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 12px;
 `
 
 export const PublicProfile = styled.div`
@@ -124,7 +143,7 @@ export const PublicProfileInfo = styled.div`
   }
 
   button {
-    color: ${props => props.theme.colors.textColor};
+    color: ${theme.colors.textColor};
   }
 `
 

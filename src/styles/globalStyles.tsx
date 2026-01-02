@@ -71,7 +71,7 @@ export const CloseButton = styled.button`
 
     svg {
       font-size: 24px;
-      color: ${theme.colors.baseBlue.light20};
+      color: ${theme.colors.textColor};
     }
 
     &:hover {

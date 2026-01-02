@@ -46,7 +46,7 @@ export default function PasswordForm({ onClose }: PasswordFormProps) {
   return (
     <Box $bgColor="glass" direction="column" height="lg" width="lg" $align="center" $justify="center">
       <PasswordFormContainer>
-        <CloseButton onClick={onClose}>
+        <CloseButton type="button" onClick={onClose}>
           <IoCloseCircleSharp />
         </CloseButton>
 

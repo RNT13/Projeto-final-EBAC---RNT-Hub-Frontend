@@ -1,9 +1,10 @@
-import { media } from '@/styles/theme'
+import { media, theme } from '@/styles/theme'
 import styled from 'styled-components'
 
 export const UserIdCardContainer = styled.div`
   width: 100%;
   height: 100%;
+  color: ${theme.colors.textColor};
 `
 
 export const UserIdCardContent = styled.div`
@@ -22,7 +23,7 @@ export const UserIdCardContent = styled.div`
     cursor: pointer;
 
     h2 {
-      color: ${props => props.theme.colors.baseBlue.base};
+      color: ${props => props.theme.colors.baseBlue.dark20};
     }
   }
 

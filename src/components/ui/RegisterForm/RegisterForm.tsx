@@ -65,7 +65,7 @@ export function RegisterForm({ registerSuccess, onClose }: RegisterProps) {
 
   return (
     <RegisterFormContainer>
-      <CloseButton onClick={onClose}><IoIosCloseCircle /></CloseButton>
+      <CloseButton type="button" onClick={onClose}><IoIosCloseCircle /></CloseButton>
       <RegisterFormContent>
         <Box $bgColor="glass" direction="column" $align="center" $justify="center" width="lg" height="lg">
           <RegisterFormHeader>

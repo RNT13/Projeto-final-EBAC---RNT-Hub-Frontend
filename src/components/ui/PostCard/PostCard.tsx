@@ -1,8 +1,9 @@
 "use client"
 
-import { useLikePostMutation, useUnlikePostMutation } from "@/redux/slices/apiSlice";
+import { useToggleLikeMutation } from "@/redux/slices/apiSlice";
 import { Box } from "@/styles/globalStyles";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaComment, FaHeart } from "react-icons/fa";
 import Button from "../Button/Button";
@@ -17,16 +18,19 @@ interface PostCardProps {
 
 
 export default function PostCard({ post }: PostCardProps) {
-  const [likePost, { isLoading: likeLoading }] = useLikePostMutation();
-  const [unlikePost, { isLoading: unlikeLoading }] = useUnlikePostMutation();
-
+  const route = useRouter();
+  const [toggleLike, { isLoading: toggleLikeLoading }] = useToggleLikeMutation();
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+
+  const handleClick = () => {
+    route.push(`/${post.author.username}`);
+  }
 
   return (
     <PostCardContainer>
       <PostCardContent>
         <Box $bgColor="glass" direction="column" height="fit" width="fit" $align="center" $justify="center">
-          <PostCardHeader>
+          <PostCardHeader onClick={handleClick}>
             <div>
               <UserAvatarImage user={post.author} size="small" position="flex" border="true" />
             </div>
@@ -56,16 +60,16 @@ export default function PostCard({ post }: PostCardProps) {
                   variant="ghost"
                   size="xs"
                   leftIcon={<FaHeart color={post.is_liked ? "red" : "white"} />}
-                  disabled={likeLoading || unlikeLoading}
+                  disabled={toggleLikeLoading}
                   fullWidth
-                  onClick={() => post.is_liked ? unlikePost(post.id) : likePost({ postId: post.id })}
+                  onClick={() => toggleLike(post.id)}
                 >
-                  {post.likes_count}
+                  <p>{post.likes_count}</p>
                 </Button>
 
 
                 <Button variant="ghost" size="xs" leftIcon={<FaComment />} fullWidth onClick={() => setIsCommentsOpen(!isCommentsOpen)}>
-                  {post.comments_count}
+                  <p>{post.comments_count}</p>
                 </Button>
               </PostButtonContainer>
             </PostCardFooter>

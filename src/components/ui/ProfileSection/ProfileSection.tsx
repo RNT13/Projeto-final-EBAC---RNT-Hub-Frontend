@@ -1,20 +1,22 @@
 import Loading from "@/app/loading";
-import imageBG from '@/assets/default_bg.avif';
-import { useGetCurrentUserQuery } from "@/redux/slices/apiSlice";
+import { useGetCurrentUserQuery, useGetPostsByUsernameQuery } from "@/redux/slices/apiSlice";
 import { Box } from "@/styles/globalStyles";
 import { displayWebsite, normalizeWebsite } from "@/utils/website";
+import { skipToken } from "@reduxjs/toolkit/query";
 import Image from "next/image";
 import { useState } from "react";
 import { FaCalendarAlt, FaLink } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import Button from "../Button/Button";
 import { ModalWrapper } from "../ModalWrapper/ModalWrapper";
+import PostCard from "../PostCard/PostCard";
 import ProfileSectionWindow from "../ProfileSectionWindow/ProfileSectionWindow";
 import UserAvatarImage from "../UserAvatar/UserAvatarImage";
-import { Profile, ProfileAvatarSection, ProfileBg, ProfileFooter, ProfileInfo, ProfileSectionContainer, ProfileSectionContent, UserButtonDiv, UserInfo } from "./ProfileSectionStyles";
+import { PostContainer, Profile, ProfileAvatarSection, ProfileBg, ProfileFooter, ProfileInfo, ProfileSectionContainer, ProfileSectionContent, UserButtonDiv, UserInfo } from "./ProfileSectionStyles";
 
 export default function ProfileSection() {
   const { data: user } = useGetCurrentUserQuery();
+  const { data: userPosts } = useGetPostsByUsernameQuery(user?.username ?? skipToken);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!user) return (
@@ -27,10 +29,11 @@ export default function ProfileSection() {
 
   return (
     <ProfileSectionContainer>
+      <h2>Perfil</h2>
       <Box $bgColor="glass" $padding="fit" direction="column" height="lg" width="lg" $align="center" $justify="center">
         <ProfileSectionContent>
           <ProfileBg>
-            <Image src={user.user_bg || imageBG} alt="Background" fill />
+            <Image src={user.user_bg || '/assets/default_bg.avif'} alt="Background" fill />
           </ProfileBg>
           <Profile>
             <ProfileAvatarSection>
@@ -77,6 +80,12 @@ export default function ProfileSection() {
           </Profile>
         </ProfileSectionContent>
       </Box>
+      <PostContainer>
+        <h2>Meus posts</h2>
+        {userPosts?.results.map(post => (
+          <PostCard key={post.id} post={post} />
+        ))}
+      </PostContainer>
       <ModalWrapper isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ProfileSectionWindow onClose={() => setIsModalOpen(false)} />
       </ModalWrapper>

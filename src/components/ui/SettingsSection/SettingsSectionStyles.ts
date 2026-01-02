@@ -4,6 +4,7 @@ import { styled } from 'styled-components'
 export const SettingsSectionContainer = styled.div`
   width: 100%;
   height: 100%;
+  color: ${theme.colors.textColor};
 `
 
 export const SettingsSectionContent = styled.div`

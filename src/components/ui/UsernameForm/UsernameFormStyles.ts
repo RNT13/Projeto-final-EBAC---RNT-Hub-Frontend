@@ -1,10 +1,12 @@
 import { CloseButton } from '@/styles/globalStyles'
+import { theme } from '@/styles/theme'
 import { styled } from 'styled-components'
 
 export const UsernameFormContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  color: ${theme.colors.textColor};
 
   ${CloseButton} {
     top: -5px;

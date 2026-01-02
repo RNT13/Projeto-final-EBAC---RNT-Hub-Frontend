@@ -1,7 +1,6 @@
 'use client'
 
 import Loading from '@/app/loading'
-import PostCard from '@/components/ui/PostCard/PostCard'
 import PublicPublicProfileSection from '@/components/ui/PublicProfileSection/PublicProfileSection'
 import {
   useGetPostsByUsernameQuery,
@@ -37,10 +36,6 @@ export default function UserProfilePage() {
     <UserProfilePageContainer className="container">
       <UserProfilePageContent>
         <PublicPublicProfileSection user={user} />
-
-        {posts.results.map(post => (
-          <PostCard post={post} key={post.id} />
-        ))}
       </UserProfilePageContent>
     </UserProfilePageContainer>
   )

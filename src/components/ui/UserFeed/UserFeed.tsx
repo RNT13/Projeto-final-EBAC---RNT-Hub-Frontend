@@ -21,9 +21,9 @@ export default function UserFeed() {
         ))}
       </div>
 
-      <Box $bgColor="glass" direction="column" height="lg" width="sm" $align="center" $justify="center">
+      {/* <Box $bgColor="glass" direction="column" height="lg" width="sm" $align="center" $justify="center">
         <h2>Trending News</h2>
-      </Box>
+      </Box> */}
     </UserFeedContainer>
   );
 }

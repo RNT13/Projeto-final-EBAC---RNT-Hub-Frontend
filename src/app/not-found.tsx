@@ -4,9 +4,9 @@
 // 🚫 NOT FOUND PÚBLICO - Página 404 para rotas públicas
 // ⚠️ ARQUIVO DELETÁVEL - Pode ser removido ao criar sua própria página 404
 
+import { theme } from '@/styles/theme'
 import Link from 'next/link'
 import styled from 'styled-components'
-import { theme } from '@/styles/theme'
 
 const NotFoundContainer = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ const NotFoundContainer = styled.div`
 
   h1 {
     font-size: 4rem;
-    color: ${theme.colors.blue2};
+    color: ${theme.colors.blue};
     margin-bottom: 20px;
   }
 
@@ -59,4 +59,3 @@ export default function NotFound() {
     </NotFoundContainer>
   )
 }
-        

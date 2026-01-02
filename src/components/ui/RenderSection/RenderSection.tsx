@@ -40,13 +40,6 @@ export default function RenderSection({ activeSection }: RenderSectionProps) {
         <ProfileSection />
       );
 
-    case 'mensagens':
-      return (
-        <Box $bgColor="glass" direction="column" height="lg" width="lg" $align="center" $justify="center">
-          <h2>Seção de Mensagens</h2>
-        </Box>
-      );
-
     case 'notificacoes':
       return (
         <Box $bgColor="glass" direction="column" height="lg" width="lg" $align="center" $justify="center">

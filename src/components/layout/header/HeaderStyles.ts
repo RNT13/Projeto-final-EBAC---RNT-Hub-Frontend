@@ -1,5 +1,5 @@
 import { Box } from '@/styles/globalStyles'
-import { media } from '@/styles/theme'
+import { media, theme } from '@/styles/theme'
 import { styled } from 'styled-components'
 
 export const HeaderContainer = styled.header`
@@ -19,6 +19,7 @@ export const HeaderContainer = styled.header`
 export const HeaderContent = styled.div`
   width: 100%;
   height: 100%;
+  color: ${theme.colors.textColor};
 
   ${Box} {
     ${media.mobile} {

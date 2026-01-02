@@ -8,7 +8,7 @@ type Props = {
 
 export const UserWindowContainer = styled.div<Props>`
   position: absolute;
-  top: 85px;
+  top: 93px;
   right: 20px;
   width: fit-content;
   display: flex;
@@ -18,7 +18,7 @@ export const UserWindowContainer = styled.div<Props>`
   z-index: 100;
 
   button {
-    color: ${props => props.theme.colors.textColor};
+    color: ${theme.colors.textColor};
     font-weight: 500;
     font-size: 1rem;
   }
@@ -26,7 +26,7 @@ export const UserWindowContainer = styled.div<Props>`
   ${slideFromTop}
 
   ${media.mobile} {
-    top: 178px;
+    top: 200px;
   }
 `
 
@@ -62,7 +62,9 @@ export const UserWindowFooter = styled.div`
   border-top: 1px solid ${props => props.theme.colors.baseglass.light02};
 
   button {
-    color: ${theme.colors.baseRed.dark};
-    text-shadow: 1px 1px 2px ${theme.colors.baseBlack.light50};
+    font-size: 20px;
+    font-weight: bold;
+    color: ${theme.colors.baseRed.dark20};
+    text-shadow: 2px 2px 2px ${theme.colors.baseBlack.light50};
   }
 `

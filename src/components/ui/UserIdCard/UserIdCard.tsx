@@ -1,5 +1,4 @@
 import Loading from '@/app/loading';
-import default_bg from '@/assets/default_bg.avif';
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import UserAvatarImage from '../UserAvatar/UserAvatarImage';
@@ -31,7 +30,7 @@ export default function UserIdCard({ users }: UserIdCardProps) {
             <h2>{users.full_name}</h2>
             <p>{users.user_tag}</p>
             <UserBgDiv>
-              {users.user_bg ? <Image src={users.user_bg} fill alt="User Background" /> : <Image src={default_bg} fill alt="User Background" />}
+              {users.user_bg ? <Image src={users.user_bg} fill sizes="100%" alt="User Background" /> : <Image src={'/assets/default_bg.avif'} fill sizes="100%" alt="User Background" />}
             </UserBgDiv>
           </UserIdCardHeader>
 

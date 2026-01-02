@@ -5,6 +5,7 @@ import { handleApiError } from "@/utils/handleApiError";
 import { FormikProvider, useFormik } from "formik";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { IoMdCloseCircle } from "react-icons/io";
 import * as yup from 'yup';
 import Button from "../Button/Button";
 import { FormikMaskedInput } from "../MaskedInput/FormikMaskedInput";
@@ -50,12 +51,12 @@ export default function PostWindow({ onClose }: PostWindowProps) {
 
   return (
     <PostWindowContainer>
+      <CloseButton type="button" onClick={onClose} ><IoMdCloseCircle /></CloseButton>
       <PostWindowContent>
         <Box $bgColor="glass" direction="column" height="lg" width="lg">
           <PostWindowHeader>
             <div>
               <h2>Criar publicação</h2>
-              <CloseButton />
             </div>
             <PostWindowDetails>
               <div>

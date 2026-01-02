@@ -5,7 +5,7 @@ export const LeftSidebarContainer = styled.div`
   width: 280px;
   height: 100%;
   position: sticky;
-  top: 100px;
+  top: 120px;
 
   ${media.tablet} {
     position: fixed;

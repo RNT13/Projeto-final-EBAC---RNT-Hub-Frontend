@@ -15,7 +15,6 @@ import {
 } from "./UserIdSectionStyles"
 
 export const UserIdSection = () => {
-
   const search = useAppSelector((state: RootState) => state.search.value)
   const isSearching = search.length >= 2
 
@@ -31,13 +30,6 @@ export const UserIdSection = () => {
 
   const { data: following } = useGetFollowingQuery(userId!, { skip: !userId })
 
-  console.log({
-    currentUser,
-    popularUsers,
-    followers,
-    following
-  })
-
   if (userLoading || searchLoading) return <Loading />
 
   return (
@@ -49,6 +41,7 @@ export const UserIdSection = () => {
           <UserRenderSection
             title={`Resultados para "${search}"`}
             data={searchUsers.results}
+            mode="user"
           />
         )}
 
@@ -58,16 +51,21 @@ export const UserIdSection = () => {
             <UserRenderSection
               title="🔥 Usuários mais populares"
               data={popularUsers?.results ?? []}
+              mode="user"
             />
 
             <UserRenderSection
               title="Usuários que seguem você"
               data={followers?.results ?? []}
+              mode="follow"
+              followType="following"
             />
 
             <UserRenderSection
               title="Usuários que você segue"
               data={following?.results ?? []}
+              mode="follow"
+              followType="followers"
             />
           </>
         )}

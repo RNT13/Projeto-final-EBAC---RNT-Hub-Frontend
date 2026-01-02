@@ -1,11 +1,14 @@
 import { Box } from '@/styles/globalStyles'
-import { media } from '@/styles/theme'
+import { media, theme } from '@/styles/theme'
 import { styled } from 'styled-components'
 
 export const ProfileSectionContainer = styled.div`
   width: 100%;
   height: 100%;
-  color: ${props => props.theme.colors.textColor};
+  color: ${theme.colors.textColor};
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 
   ${media.tablet} {
     ${Box} {
@@ -22,6 +25,15 @@ export const ProfileSectionContent = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`
+
+export const PostContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 12px;
 `
 
 export const Profile = styled.div`
@@ -122,6 +134,7 @@ export const ProfileInfo = styled.div`
     overflow-wrap: break-word;
     word-break: break-word;
     white-space: normal;
+    gap: 8px;
 
     svg {
       width: 20px;
@@ -147,7 +160,8 @@ export const ProfileInfo = styled.div`
   }
 
   button {
-    color: ${props => props.theme.colors.textColor};
+    color: ${theme.colors.textColor};
+    padding: 0px;
   }
 
   ${media.tablet} {

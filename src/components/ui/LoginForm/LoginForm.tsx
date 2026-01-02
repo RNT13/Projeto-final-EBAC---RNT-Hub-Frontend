@@ -50,7 +50,7 @@ export function LoginForm({ loginSuccess, onClose }: LoginProps) {
 
   return (
     <LoginFormContainer>
-      <CloseButton onClick={onClose}><IoIosCloseCircle /></CloseButton>
+      <CloseButton type="button" onClick={onClose}><IoIosCloseCircle /></CloseButton>
       <LoginFormContent>
         <Box $bgColor="glass" direction="column" $align="center" $justify="center" width="lg" height="lg">
           <LoginFormHeader>

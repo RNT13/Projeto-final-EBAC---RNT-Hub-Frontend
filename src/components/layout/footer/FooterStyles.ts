@@ -7,7 +7,7 @@ export const FooterContainer = styled.footer`
   margin-bottom: 90px;
 
   p {
-    color: ${theme.colors.baseBlue.light50};
+    color: ${theme.colors.textColor};
     font-weight: 500;
   }
 

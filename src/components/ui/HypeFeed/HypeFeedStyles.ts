@@ -1,5 +1,5 @@
 import { Box } from '@/styles/globalStyles'
-import { media } from '@/styles/theme'
+import { media, theme } from '@/styles/theme'
 import { styled } from 'styled-components'
 
 export const HypeFeedContainer = styled.div`
@@ -9,6 +9,7 @@ export const HypeFeedContainer = styled.div`
   align-items: start;
   justify-content: center;
   gap: 24px;
+  color: ${theme.colors.textColor};
 
   > div:first-child {
     width: 100%;

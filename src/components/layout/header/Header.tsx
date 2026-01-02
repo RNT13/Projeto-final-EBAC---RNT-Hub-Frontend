@@ -8,9 +8,9 @@ import { setRenderSection } from "@/redux/slices/renderSectionSlice";
 import { setSearch } from "@/redux/slices/searchSlice";
 import { RootState } from "@/redux/store";
 import { Box } from "@/styles/globalStyles";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FaHubspot } from "react-icons/fa6";
 import { HeaderContainer, HeaderContent, LogoContainer, SearchBarContainer, UserContainer } from "./HeaderStyles";
 
 
@@ -23,7 +23,7 @@ export default function Header() {
   const search = useAppSelector((state: RootState) => state.search.value);
 
 
-  const handleSectionChange = (newSection: unknown) => {
+  const handleSectionChange = (newSection: SectionType) => {
     dispatch(setRenderSection(newSection));
     setIsMenuOpen(false)
     route.push(`/feed`);
@@ -33,8 +33,9 @@ export default function Header() {
     <HeaderContainer className="container">
       <HeaderContent>
         <Box $bgColor="glass" $padding="lg" direction="row" height="lg" width="lg" $align="center" $justify="space-between">
-          <LogoContainer onClick={() => handleSectionChange('noticias')}>
-            <FaHubspot /><p>RNT Hub</p>
+          <LogoContainer onClick={() => handleSectionChange('feed')}>
+            <Image src="/assets/logo_rnt_hub.png" width={50} height={50} alt="Logo" loading="eager" />
+            <p>RNT Hub</p>
           </LogoContainer>
 
           <SearchBarContainer>

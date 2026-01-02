@@ -4,7 +4,6 @@ import { logout } from "@/redux/slices/authSlice";
 import { Box } from "@/styles/globalStyles";
 import { useRouter } from "next/navigation";
 import { FaRegBell, FaSignOutAlt, FaUser } from "react-icons/fa";
-import { FiMessageSquare } from "react-icons/fi";
 import { GoGear } from "react-icons/go";
 import Button from "../Button/Button";
 import UserAvatarImage from "../UserAvatar/UserAvatarImage";
@@ -54,17 +53,6 @@ export default function UserWindow({ isOpen, activeSection, setActiveSection }: 
                 onClick={() => { router.push("/feed"); setActiveSection("perfil") }}
               >
                 Perfil
-              </Button>
-
-              <Button
-                variant="glass"
-                size="md"
-                leftIcon={<FiMessageSquare />}
-                fullWidth
-                $isActive={activeSection === "mensagens"}
-                onClick={() => { router.push("/feed"); setActiveSection('mensagens') }}
-              >
-                Mensagens
               </Button>
 
               <Button

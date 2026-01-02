@@ -14,6 +14,11 @@ export const HomeContent = styled.div`
 export const HomeTitle = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+
   padding: 5px;
 
   h1 {
@@ -22,6 +27,10 @@ export const HomeTitle = styled.div`
 
   ${media.tablet} {
     text-align: center;
+    flex-direction: column;
+
+    img {
+    }
   }
 `
 

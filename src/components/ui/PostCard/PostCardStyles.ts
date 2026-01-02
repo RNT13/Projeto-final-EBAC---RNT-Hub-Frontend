@@ -1,8 +1,9 @@
 import { Box } from '@/styles/globalStyles'
-import { media } from '@/styles/theme'
+import { media, theme } from '@/styles/theme'
 import { styled } from 'styled-components'
 
 export const PostCardContainer = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
 `
@@ -10,6 +11,7 @@ export const PostCardContainer = styled.div`
 export const PostCardContent = styled.div`
   width: 100%;
   height: 100%;
+  color: ${theme.colors.textColor};
 
   ${media.tablet} {
     ${Box} {
@@ -25,6 +27,16 @@ export const PostCardHeader = styled.div`
   display: flex;
   gap: 10px;
   border-bottom: 1px solid ${props => props.theme.colors.baseglass.light02};
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${props => props.theme.colors.baseglass.light02};
+    border-radius: 12px;
+
+    h2 {
+      color: ${props => props.theme.colors.baseBlue.light50};
+    }
+  }
 `
 
 export const PostAuthorInfo = styled.div`
@@ -70,8 +82,15 @@ export const PostButtonContainer = styled.div`
   justify-content: center;
   gap: 5px;
 
-  svg {
-    width: 25px;
-    height: 25px;
+  button {
+    p {
+      color: ${theme.colors.textColor};
+    }
+
+    svg {
+      width: 25px;
+      height: 25px;
+      color: ${theme.colors.textColor};
+    }
   }
 `

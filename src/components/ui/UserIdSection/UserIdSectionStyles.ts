@@ -1,3 +1,4 @@
+import { theme } from '@/styles/theme'
 import { styled } from 'styled-components'
 
 export const UserIdSectionContainer = styled.div`
@@ -13,4 +14,5 @@ export const UserIdSectionContent = styled.div`
   align-items: center;
   justify-content: center;
   gap: 24px;
+  color: ${theme.colors.textColor};
 `

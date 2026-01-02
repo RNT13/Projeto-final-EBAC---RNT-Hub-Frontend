@@ -1,5 +1,5 @@
 import { drawer } from '@/styles/animations'
-import { media } from '@/styles/theme'
+import { media, theme } from '@/styles/theme'
 import { styled } from 'styled-components'
 
 export const ComentsWindowContainer = styled.div`
@@ -19,6 +19,7 @@ export const UserComents = styled.div`
   margin-bottom: 12px;
   display: flex;
   gap: 10px;
+  color: ${theme.colors.textColor};
 
   img {
     object-fit: cover;

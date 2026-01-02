@@ -47,7 +47,6 @@ export const RegisterFormBody = styled.form`
 
   input {
     border-radius: 16px;
-    border-color: ${theme.colors.baseglass.light02};
   }
 
   button {
